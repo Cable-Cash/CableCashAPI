@@ -11,6 +11,7 @@ import lombok.Setter;
 @Table(name = "user", schema = "auth")
 public class User {
 
+    @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,6 +26,6 @@ public class User {
     @JoinColumn(name = "idCliente", nullable = false)
     private Cliente cliente;
 
-    @Column(name = "habilitado", nullable = false)
-    private Boolean habilitado;
+    @Column(name = "role", columnDefinition = "USER", nullable = false)
+    private String role;
 }

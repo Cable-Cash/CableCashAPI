@@ -22,44 +22,44 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 
-//    @Autowired
-//    private UserAuthService userDetailsService;
-//
-//    @Bean
-//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//        http
-//                .authorizeHttpRequests(authorizeRequests ->
-//                        authorizeRequests
-//                                .requestMatchers("/login", "/h2-console/**").permitAll()
-//                                .anyRequest().authenticated()
-//                )
-//                .formLogin(formLogin ->
-//                        formLogin
-//                                .loginPage("/login")
-//                                .defaultSuccessUrl("/")
-//                                .permitAll()
-//                )
-//                .rememberMe(rememberMe ->
-//                        rememberMe
-//                                .key("uniqueAndSecret")
-//                                .tokenValiditySeconds(86400) // 1 dia
-//                )
-//                .logout(LogoutConfigurer::permitAll);
-//
-//        // Disabling CSRF protection for H2 Console and enabling frame options for H2 Console
-//        http.csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**"))
-//                .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin));
-//
-//        return http.build();
-//    }
-//
+    @Autowired
+    private UserAuthService userDetailsService;
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+                .authorizeHttpRequests(authorizeRequests ->
+                        authorizeRequests
+                                .requestMatchers("/**").permitAll()
+                                .anyRequest().authenticated()
+                )
+                .formLogin(formLogin ->
+                        formLogin
+                                .loginPage("/login")
+                                .defaultSuccessUrl("/")
+                                .permitAll()
+                )
+                .rememberMe(rememberMe ->
+                        rememberMe
+                                .key("uniqueAndSecret")
+                                .tokenValiditySeconds(86400) // 1 dia
+                )
+                .logout(LogoutConfigurer::permitAll);
+
+        // Disabling CSRF protection for H2 Console and enabling frame options for H2 Console
+        http.csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**"))
+                .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin));
+
+        return http.build();
+    }
+
 //    @Override
 //    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 //        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
 //    }
 
-//    @Bean
-//    public PasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 }

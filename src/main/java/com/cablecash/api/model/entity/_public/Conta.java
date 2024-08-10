@@ -1,5 +1,6 @@
 package com.cablecash.api.model.entity._public;
 
+import com.cablecash.api.enums.EnumTipoConta;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,7 +22,7 @@ public class Conta {
     private String numeroConta;
 
     @Column(name = "tipo_conta", nullable = false, length = 20)
-    private String tipoConta;
+    private EnumTipoConta tipoConta;
 
     @Column(name = "saldo", nullable = false, precision = 15, scale = 2, columnDefinition = "numeric default 0")
     private BigDecimal saldo;

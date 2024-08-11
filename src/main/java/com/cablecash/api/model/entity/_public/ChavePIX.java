@@ -26,11 +26,11 @@ public class ChavePIX {
     private Timestamp dataCriacao;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_cliente", nullable = false)
+    @JoinColumn(name = "id_cliente",  referencedColumnName = "id", nullable = false)
     private Cliente idCliente;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_conta", nullable = false)
+    @JoinColumn(name = "id_conta",  referencedColumnName = "id", nullable = false)
     private Conta idConta;
 
 }

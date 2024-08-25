@@ -13,11 +13,11 @@ import java.util.stream.Stream;
 @RequestMapping(value = "/agencia", produces = "application/json")
 public class AgenciaController {
 
-    @Autowired
-    AgenciaService service;
-
-    @GetMapping(value = "/get")
-    public Stream<AgenciaDTO> getAgencias() {
-        return service.getAgencias();
-    }
+//    @Autowired
+//    AgenciaService service;
+//
+//    @GetMapping(value = "/get")
+//    public Stream<AgenciaDTO> getAgencias() {
+//        return service.getAgencias();
+//    }
 }

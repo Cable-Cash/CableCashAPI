@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.Date;
 
 @Getter
@@ -25,7 +26,7 @@ public class Cliente {
     private String sobrenome;
 
     @Column(name = "dataNascimento", nullable = false)
-    private Date dataNascimento;
+    private Timestamp dataNascimento;
 
     @Column(name = "cpf",  length = 11, unique = true, nullable = false)
     private String cpf;

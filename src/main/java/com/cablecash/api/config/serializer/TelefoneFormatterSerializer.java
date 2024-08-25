@@ -11,16 +11,18 @@ public class TelefoneFormatterSerializer extends JsonSerializer<String> {
     public void serialize(String telefone, JsonGenerator gen, SerializerProvider serializers) throws IOException {
         if (telefone != null) {
             String telefoneFormatter;
-            if (telefone.length() == 10) {
-                telefoneFormatter = String.format("(%s) %s-%s",
+            if (telefone.length() == 13) {
+                telefoneFormatter = String.format("+%s (%s) %s-%s",
                         telefone.substring(0, 2),
-                        telefone.substring(2, 6),
-                        telefone.substring(6, 10));
-            } else if (telefone.length() == 11) {
-                telefoneFormatter = String.format("(%s) %s-%s",
+                        telefone.substring(2, 4),
+                        telefone.substring(4, 9),
+                        telefone.substring(9, 13));
+            } else if (telefone.length() == 12) {
+                telefoneFormatter = String.format("+%s (%s) %s-%s",
                         telefone.substring(0, 2),
-                        telefone.substring(2, 7),
-                        telefone.substring(7, 11));
+                        telefone.substring(2, 4),
+                        telefone.substring(4, 8),
+                        telefone.substring(8, 12));
             } else {
                 telefoneFormatter = telefone;
             }

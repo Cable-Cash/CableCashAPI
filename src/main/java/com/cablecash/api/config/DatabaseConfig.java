@@ -21,4 +21,15 @@ public class DatabaseConfig {
 
         return dataSourceBuilder.build();
     }
+
+//    @Bean
+//    public DataSource dataSourceTest() {
+//        DataSourceBuilder<?> dataSourceBuilder = DataSourceBuilder.create();
+//        dataSourceBuilder.driverClassName("org.postgresql.Driver");
+//        dataSourceBuilder.url(System.getenv("DB_URL") + "/CableCashTestDB");
+//        dataSourceBuilder.username(System.getenv("DB_USERNAME"));
+//        dataSourceBuilder.password(System.getenv("DB_PASSWORD"));
+//
+//        return dataSourceBuilder.build();
+//    }
 }

@@ -15,7 +15,7 @@ import java.util.Date;
 public class Cliente {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
@@ -26,7 +26,7 @@ public class Cliente {
     private String sobrenome;
 
     @Column(name = "dataNascimento", nullable = false)
-    private Timestamp dataNascimento;
+    private Date dataNascimento;
 
     @Column(name = "cpf",  length = 11, unique = true, nullable = false)
     private String cpf;
@@ -40,7 +40,7 @@ public class Cliente {
     @Column(name = "endereco", nullable = false)
     private String endereco;
 
-    @Column(name = "rendaMensal", length = 15, precision = 2)
+    @Column(name = "rendaMensal", precision = 15, scale = 2)
     private BigDecimal rendaMensal;
 
 }

@@ -25,7 +25,7 @@ public class ClienteDTO {
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     @JsonSerialize(using = DataFormatterSerializer.class)
-    private Timestamp dataNascimento;
+    private Date dataNascimento;
 
     @JsonSerialize(using = CpfFormatterSerializer.class)
     private String cpf;

@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
-
 @RestController
 @RequestMapping(value = "/api/cliente", produces = "application/json")
 public class ClienteController {
@@ -20,7 +18,7 @@ public class ClienteController {
     public ResponseEntity<ClienteDTO> addCliente(@RequestBody Cliente request) {
         try {
             ClienteDTO response = service.addCliente(request);
-            return ResponseEntity.created(URI.create("/new" + response.getId())).body(response);
+            return ResponseEntity.status(201).body(response);
         } catch (Exception ex) {
             return ResponseEntity.badRequest().build();
         }
@@ -29,9 +27,9 @@ public class ClienteController {
     @GetMapping("/{id}")
     public ResponseEntity<ClienteDTO> getClienteById(@PathVariable("id") Long id) {
         try {
-            return ResponseEntity.ok(service.getClienteById(id));
+            return ResponseEntity.status(302).body(service.getClienteById(id));
         } catch (Exception ex) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.status(404).build();
         }
     }
 
@@ -39,7 +37,7 @@ public class ClienteController {
     public ResponseEntity<ClienteDTO> updateCliente(@PathVariable("id") Long id, @RequestBody Cliente request) {
         try {
             ClienteDTO response = service.updateCliente(id, request);
-            return ResponseEntity.ok(response);
+            return ResponseEntity.status(202).body(response);
         } catch (Exception ex) {
             return ResponseEntity.badRequest().build();
         }
@@ -49,7 +47,7 @@ public class ClienteController {
     public ResponseEntity<Void> deleteCliente(@PathVariable("id") Long id) {
         try {
             service.deleteCliente(id);
-            return ResponseEntity.ok().build();
+            return ResponseEntity.status(204).build();
         } catch (Exception ex) {
             return ResponseEntity.badRequest().build();
         }

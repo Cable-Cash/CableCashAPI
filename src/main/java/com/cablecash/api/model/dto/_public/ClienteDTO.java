@@ -6,17 +6,16 @@ import com.cablecash.api.config.serializer.TelefoneFormatterSerializer;
 import com.cablecash.api.model.entity._public.Cliente;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import lombok.AllArgsConstructor;
+import io.swagger.v3.oas.annotations.Hidden;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
 import java.util.Date;
 
 @Getter
 @Setter
+@Hidden
 public class ClienteDTO {
 
     private Long id;

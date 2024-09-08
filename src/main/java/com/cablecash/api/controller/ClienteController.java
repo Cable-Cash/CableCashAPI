@@ -27,7 +27,7 @@ public class ClienteController {
     @GetMapping("/{id}")
     public ResponseEntity<ClienteDTO> getClienteById(@PathVariable("id") Long id) {
         try {
-            return ResponseEntity.status(302).body(service.getClienteById(id));
+            return ResponseEntity.status(200).body(service.getClienteById(id));
         } catch (Exception ex) {
             return ResponseEntity.status(404).build();
         }

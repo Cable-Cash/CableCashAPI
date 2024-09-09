@@ -73,7 +73,7 @@ public class ClienteController {
     @ApiResponses(
             value = {
                     @ApiResponse(
-                            responseCode = "302",
+                            responseCode = "200",
                             description = "Cliente encontrado."
                     ), 
                     @ApiResponse(

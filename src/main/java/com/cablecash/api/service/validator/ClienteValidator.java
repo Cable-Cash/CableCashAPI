@@ -54,4 +54,30 @@ public class ClienteValidator implements Validator {
         }
 
     }
+
+    public Cliente updateValivator(Cliente entity, Cliente patchEntity) {
+        if (entity != null) {
+            if (entity.getNome() != null) {
+                patchEntity.setNome(entity.getNome());
+            }
+            if (entity.getSobrenome() != null) {
+                patchEntity.setSobrenome(entity.getSobrenome());
+            }
+            if (entity.getDataNascimento() != null) {
+                patchEntity.setDataNascimento(entity.getDataNascimento());
+            }
+            if (entity.getCpf() != null) {
+                patchEntity.setCpf(entity.getCpf());
+            }
+            if (entity.getEmail() != null) {
+                patchEntity.setEmail(entity.getEmail());
+            }
+            if (entity.getEndereco() != null) {
+                patchEntity.setEndereco(entity.getEndereco());
+            }
+            patchEntity.setTelefone(entity.getTelefone());
+            patchEntity.setRendaMensal(entity.getRendaMensal());
+        }
+        return patchEntity;
+    }
 }

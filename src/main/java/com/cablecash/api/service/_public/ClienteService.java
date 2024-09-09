@@ -25,11 +25,6 @@ public class ClienteService {
         try {
             BindingResult result = new BeanPropertyBindingResult(entity, "cliente");
             validator.validate(entity, result);
-            if (result.hasErrors()) {
-                Stream.of(result.getAllErrors()).forEach(error -> {
-                    throw new ClienteException("Erro de validação!");
-                });
-            }
             Cliente newEntity = repository.save(entity);
             return new ClienteDTO(newEntity);
         } catch (Exception ex) {
@@ -38,43 +33,19 @@ public class ClienteService {
     }
 
     public ClienteDTO getClienteById(Long id) {
-        try {
-            Cliente entity = repository.findById(id).orElse(null);
-            assert entity != null;
-            return new ClienteDTO(entity);
-        } catch (Exception ex) {
-            throw new ClienteException("Cliente não encontrado!");
-        }
+        return repository.findById(id)
+                .map(ClienteDTO::new)
+                .orElseThrow(() -> new ClienteException("Cliente não encontrado!"));
     }
 
     public ClienteDTO updateCliente(Long id, Cliente entity) {
+        Cliente patchEntity = repository.findById(id).orElseThrow(
+                () -> new ClienteException("Cliente não encontrado!")
+        );
         try {
-            Cliente patchEntity = repository.findById(id).orElseThrow(
-                            () -> new ClienteException("Cliente não encontrado!")
-                    );
-            if (entity != null) {
-                if (entity.getNome() != null) {
-                    patchEntity.setNome(entity.getNome());
-                }
-                if (entity.getSobrenome() != null) {
-                    patchEntity.setSobrenome(entity.getSobrenome());
-                }
-                if (entity.getDataNascimento() != null) {
-                    patchEntity.setDataNascimento(entity.getDataNascimento());
-                }
-                if (entity.getCpf() != null) {
-                    patchEntity.setCpf(entity.getCpf());
-                }
-                if (entity.getEmail() != null) {
-                    patchEntity.setEmail(entity.getEmail());
-                }
-                if (entity.getEndereco() != null) {
-                    patchEntity.setEndereco(entity.getEndereco());
-                }
-                patchEntity.setTelefone(entity.getTelefone());
-                patchEntity.setRendaMensal(entity.getRendaMensal());
-            }
-            Cliente updatedEntity = repository.save(patchEntity);
+            BindingResult result = new BeanPropertyBindingResult(entity, "cliente");
+            validator.validate(entity, result);
+            Cliente updatedEntity = repository.save(validator.updateValivator(entity, patchEntity));
             return new ClienteDTO(updatedEntity);
         } catch (Exception ex) {
             throw new ClienteException("Erro ao atualizar cliente!");

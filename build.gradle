@@ -1,5 +1,6 @@
 plugins {
 	id 'java'
+	id 'jacoco'
 	id 'org.springframework.boot' version '3.3.2'
 	id 'io.spring.dependency-management' version '1.1.6'
 }
@@ -10,6 +11,27 @@ version = '0.0.1-SNAPSHOT'
 java {
 	toolchain {
 		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+jacoco {
+	toolVersion = "0.8.8"
+}
+
+jacocoTestReport {
+	reports {
+		html.required = true // Para gerar o relatório no formato HTML
+	}
+	afterEvaluate {
+		classDirectories.setFrom(files(classDirectories.files.collect {
+			fileTree(dir: it,
+					exclude: ['**/com/cablecash/api/enums/**',
+							  '**/com/cablecash/api/config/**',
+							  '**/com/cablecash/api/exception/**',
+							  '**/com/cablecash/api/service/validator/**',
+							'**/com/cablecash/api/App.class'
+					])
+		}))
 	}
 }
 
@@ -45,8 +67,19 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+	finalizedBy jacocoTestReport
+}
+
+jacocoTestCoverageVerification {
+	violationRules {
+		rule {
+			limit {
+				minimum = 0.10 // 80% de cobertura mínima
+			}
+		}
+	}
 }
 
 test {
-	enabled = false
+	finalizedBy jacocoTestCoverageVerification
 }

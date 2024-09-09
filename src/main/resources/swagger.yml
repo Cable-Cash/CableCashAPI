@@ -1,0 +1,10 @@
+springfox:
+  documentation:
+    swagger:
+      v2:
+        path: /v2/api-docs
+        title: API Documentation
+        description: API Documentation
+  bean:
+    validator:
+      factory: static

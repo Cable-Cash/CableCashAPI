@@ -1,6 +1,6 @@
 package com.cablecash.api.unit.controller;
 
-import static com.cablecash.api.config.MockDataConfig.transformEntityToDto;
+import static com.cablecash.api.config.MockDataConfig.transformClienteToDto;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -10,7 +10,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
-import com.cablecash.api.exception.cliente.ClienteException;
+import com.cablecash.api.exception.ClienteException;
 import com.cablecash.api.model.entity._public.Cliente;
 import com.cablecash.api.repository._public.ClienteRepository;
 import com.cablecash.api.service._public.ClienteService;
@@ -51,13 +51,13 @@ public class ClienteControllerUnitTest {
     void addClienteTest() throws Exception {
         Cliente testEntity = new Cliente();
 
-        when(service.addCliente(any(Cliente.class))).thenReturn(transformEntityToDto(testEntity));
+        when(service.addCliente(any(Cliente.class))).thenReturn(transformClienteToDto(testEntity));
 
         mockMvc.perform(post("/api/cliente/new")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(testEntity)))
                 .andExpect(status().isCreated())
-                .andExpect(content().json(objectMapper.writeValueAsString(transformEntityToDto(testEntity))));
+                .andExpect(content().json(objectMapper.writeValueAsString(transformClienteToDto(testEntity))));
     }
 
     @Test
@@ -77,18 +77,11 @@ public class ClienteControllerUnitTest {
     void getClienteByIdTest() throws Exception {
         Cliente testEntity = new Cliente();
 
-        when(service.getClienteById(1L)).thenReturn(transformEntityToDto(testEntity));
+        when(service.getClienteById(1L)).thenReturn(transformClienteToDto(testEntity));
 
         mockMvc.perform(get("/api/cliente/1"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(1))
-                .andExpect(jsonPath("$.nome").value("Nome"))
-                .andExpect(jsonPath("$.sobrenome").value("Sobrenome"))
-                .andExpect(jsonPath("$.cpf").value("123.456.789-01"))
-                .andExpect(jsonPath("$.email").value("teste@email.com"))
-                .andExpect(jsonPath("$.telefone").value("+55 (19) 12345-6789"))
-                .andExpect(jsonPath("$.endereco").value("Rua teste, 123"))
-                .andExpect(jsonPath("$.rendaMensal").value(1000));
+                .andExpect(content().json(objectMapper.writeValueAsString(transformClienteToDto(testEntity))));
     }
 
     @Test
@@ -105,7 +98,7 @@ public class ClienteControllerUnitTest {
     void updateClienteTest() throws Exception {
         Cliente testEntity = new Cliente();
 
-        when(service.updateCliente(1L, testEntity)).thenReturn(transformEntityToDto(testEntity));
+        when(service.updateCliente(1L, testEntity)).thenReturn(transformClienteToDto(testEntity));
 
         mockMvc.perform(patch("/api/cliente/1")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -117,7 +110,7 @@ public class ClienteControllerUnitTest {
     void deleteClienteTest() throws Exception {
         Cliente testEntity = new Cliente();
 
-        doNothing().when(service).deleteCliente(transformEntityToDto(testEntity).getId());
+        doNothing().when(service).deleteCliente(transformClienteToDto(testEntity).getId());
 
         mockMvc.perform(delete("/api/cliente/1"))
                 .andExpect(status().isNoContent());

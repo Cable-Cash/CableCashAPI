@@ -1,6 +1,5 @@
 package com.cablecash.api.controller;
 
-import com.cablecash.api.model.dto._public.ClienteDTO;
 import com.cablecash.api.model.entity._public.Cliente;
 import com.cablecash.api.service._public.ClienteService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -48,7 +47,7 @@ public class ClienteController {
                     )
             }
     )
-    public ResponseEntity<ClienteDTO> addCliente(
+    public ResponseEntity<?> addCliente(
             @io.swagger.v3.oas.annotations.parameters.RequestBody(
                     description = "Objeto do cliente a ser criado.",
                     required = true,
@@ -59,10 +58,9 @@ public class ClienteController {
             @org.springframework.web.bind.annotation.RequestBody Cliente request
     ) {
         try {
-            ClienteDTO response = service.addCliente(request);
-            return ResponseEntity.status(201).body(response);
+            return ResponseEntity.status(201).body(service.addCliente(request));
         } catch (Exception ex) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.status(400).body(ex.getMessage());
         }
     }
 
@@ -86,7 +84,7 @@ public class ClienteController {
                     )
             }
     )
-    public ResponseEntity<ClienteDTO> getClienteById(
+    public ResponseEntity<?> getClienteById(
             @Parameter(
                     description = "ID do cliente a ser recuperado.",
                     required = true,
@@ -96,7 +94,7 @@ public class ClienteController {
         try {
             return ResponseEntity.status(200).body(service.getClienteById(id));
         } catch (Exception ex) {
-            return ResponseEntity.status(404).build();
+            return ResponseEntity.status(404).body(ex.getMessage());
         }
     }
 
@@ -125,13 +123,13 @@ public class ClienteController {
                     )
             }
     )
-    public ResponseEntity<ClienteDTO> updateCliente(
+    public ResponseEntity<?> updateCliente(
             @Parameter(
                     description = "ID do cliente a ser atualizado.",
                     required = true,
                     example = "1"
             )
-            @PathVariable Long id,
+            @PathVariable("id") Long id,
             @io.swagger.v3.oas.annotations.parameters.RequestBody(
                     description = "Objeto do cliente com as informações atualizadas.",
                     required = true,
@@ -144,10 +142,9 @@ public class ClienteController {
             @org.springframework.web.bind.annotation.RequestBody Cliente request
     ) {
         try {
-            ClienteDTO response = service.updateCliente(id, request);
-            return ResponseEntity.status(202).body(response);
+            return ResponseEntity.status(202).body(service.updateCliente(id, request));
         } catch (Exception ex) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.status(400).body(ex.getMessage());
         }
     }
 
@@ -172,7 +169,7 @@ public class ClienteController {
                     )
             }
     )
-    public ResponseEntity<Void> deleteCliente(
+    public ResponseEntity<?> deleteCliente(
             @Parameter(
                     description = "ID do cliente a ser deletado.",
                     required = true,
@@ -182,9 +179,9 @@ public class ClienteController {
     ) {
         try {
             service.deleteCliente(id);
-            return ResponseEntity.status(204).build();
+            return ResponseEntity.status(202).body("Cliente deletado com sucesso!");
         } catch (Exception ex) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.status(400).body(ex.getMessage());
         }
     }
 }

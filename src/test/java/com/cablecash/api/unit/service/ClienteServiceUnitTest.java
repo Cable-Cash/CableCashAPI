@@ -1,6 +1,6 @@
 package com.cablecash.api.unit.service;
 
-import com.cablecash.api.exception.cliente.ClienteException;
+import com.cablecash.api.exception.ClienteException;
 import com.cablecash.api.model.dto._public.ClienteDTO;
 import com.cablecash.api.model.entity._public.Cliente;
 import com.cablecash.api.repository._public.ClienteRepository;

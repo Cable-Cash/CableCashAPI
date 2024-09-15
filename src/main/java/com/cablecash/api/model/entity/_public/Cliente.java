@@ -1,9 +1,11 @@
 package com.cablecash.api.model.entity._public;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -17,7 +19,7 @@ public class Cliente {
 
     @Schema(description = "ID do cliente", example = "1")
     @Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
@@ -30,6 +32,8 @@ public class Cliente {
     private String sobrenome;
 
     @Schema(description = "Data de nascimento do cliente", example = "01/01/2000")
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     @Column(name = "dataNascimento", nullable = false)
     private Date dataNascimento;
 
@@ -53,4 +57,10 @@ public class Cliente {
     @Column(name = "rendaMensal", precision = 15, scale = 2)
     private BigDecimal rendaMensal;
 
+    @PrePersist
+    private void prePersist() {
+        if (this.rendaMensal == null) {
+            this.rendaMensal = BigDecimal.ZERO;
+        }
+    }
 }

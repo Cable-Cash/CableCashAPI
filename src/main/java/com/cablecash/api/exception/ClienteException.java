@@ -1,4 +1,4 @@
-package com.cablecash.api.exception.cliente;
+package com.cablecash.api.exception;
 
 public class ClienteException extends RuntimeException {
     public ClienteException(String message) {

@@ -1,14 +1,15 @@
 package com.cablecash.api.model.dto._public;
 
 import com.cablecash.api.config.serializer.CpfFormatterSerializer;
-import com.cablecash.api.config.serializer.DataFormatterSerializer;
 import com.cablecash.api.config.serializer.TelefoneFormatterSerializer;
 import com.cablecash.api.model.entity._public.Cliente;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.Hidden;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -16,6 +17,7 @@ import java.util.Date;
 @Getter
 @Setter
 @Hidden
+@NoArgsConstructor
 public class ClienteDTO {
 
     private Long id;
@@ -23,7 +25,7 @@ public class ClienteDTO {
     private String sobrenome;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
-    @JsonSerialize(using = DataFormatterSerializer.class)
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date dataNascimento;
 
     @JsonSerialize(using = CpfFormatterSerializer.class)

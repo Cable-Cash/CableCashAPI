@@ -1,9 +1,8 @@
 package com.cablecash.api.integration;
 
 import com.cablecash.api.controller.ClienteController;
-import com.cablecash.api.model.dto._public.ClienteDTO;
-import com.cablecash.api.model.entity._public.Cliente;
-import com.cablecash.api.repository._public.ClienteRepository;
+import com.cablecash.api.model.entity.Cliente;
+import com.cablecash.api.repository.ClienteRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +36,7 @@ public class ClienteControllerIntegrationTest {
     void addClienteTest() {
         Cliente testEntity = new Cliente();
 
-        ResponseEntity<ClienteDTO> response = controller.addCliente(mockClienteValues(testEntity));
+        ResponseEntity<?> response = controller.addCliente(mockClienteValues(testEntity));
 
         if (response.getBody() != null) {
             assertEquals(HttpStatus.CREATED, response.getStatusCode());
@@ -50,7 +49,7 @@ public class ClienteControllerIntegrationTest {
     void getClienteTest() {
         addClienteTest();
 
-        ResponseEntity<ClienteDTO> response = controller.getClienteById(1L);
+        ResponseEntity<?> response = controller.getClienteById(1L);
 
         if (response.getBody() == null) {
             assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
@@ -65,7 +64,7 @@ public class ClienteControllerIntegrationTest {
 
         addClienteTest();
 
-        ResponseEntity<ClienteDTO> response = controller.updateCliente(mockClienteUpdatedValues(testEntity).getId(), mockClienteUpdatedValues(testEntity));
+        ResponseEntity<?> response = controller.updateCliente(mockClienteUpdatedValues(testEntity).getId(), mockClienteUpdatedValues(testEntity));
 
         if (response.getBody() == null) {
             assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
@@ -78,7 +77,7 @@ public class ClienteControllerIntegrationTest {
     void deleteClienteTest() {
         addClienteTest();
 
-        ResponseEntity<Void> response = controller.deleteCliente(1L);
+        ResponseEntity<?> response = controller.deleteCliente(1L);
 
         assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
     }

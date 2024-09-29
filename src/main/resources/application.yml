@@ -1,17 +1,6 @@
 spring:
   application:
-    name: APIProject
+    name: CableCashAPI
 
   profiles:
     active: prod
-
-#springfox:
-#  documentation:
-#    swagger:
-#      v2:
-#        path: /v2/api-docs
-#        title: API Documentation
-#        description: API Documentation
-#  bean:
-#    validator:
-#      factory: static

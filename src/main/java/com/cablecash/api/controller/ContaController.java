@@ -1,8 +1,7 @@
 package com.cablecash.api.controller;
 
-import com.cablecash.api.model.dto._public.ContaDTO;
-import com.cablecash.api.model.entity._public.Conta;
-import com.cablecash.api.service._public.ContaService;
+import com.cablecash.api.model.entity.Conta;
+import com.cablecash.api.service.ContaService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -26,7 +25,7 @@ public class ContaController {
 
     @PostMapping("/new")
     @Operation(
-            summary = "Cria uma nova conta.",
+            summary = "Criar conta.",
             description = "Cria uma nova conta com as informações fornecidas."
     )
     @ApiResponses(
@@ -64,17 +63,17 @@ public class ContaController {
 
     @GetMapping(value = "/{id}")
     @Operation(
-            summary = "Obtém um cliente por ID.",
-            description = "Recupera um cliente específico com base no ID fornecido.")
+            summary = "Obter conta por ID.",
+            description = "Recupera uma conta específica com base no ID fornecido.")
     @ApiResponses(
             value = {
                     @ApiResponse(
                             responseCode = "200",
-                            description = "Cliente encontrado."
+                            description = "Conta encontrada."
                     ),
                     @ApiResponse(
                             responseCode = "404",
-                            description = "Cliente não encontrado."
+                            description = "Conta não encontrada."
                     ),
                     @ApiResponse(
                             responseCode = "500",
@@ -82,9 +81,9 @@ public class ContaController {
                     )
             }
     )
-    public ResponseEntity<ContaDTO> getContaById(
+    public ResponseEntity<?> getContaById(
             @Parameter(
-                    description = "ID do conta a ser recuperado.",
+                    description = "ID da conta a ser recuperada.",
                     required = true,
                     example = "1"
             )
@@ -93,14 +92,33 @@ public class ContaController {
         try {
             return ResponseEntity.status(200).body(service.getContaById(id));
         } catch (Exception ex) {
-            return ResponseEntity.status(404).build();
+            return ResponseEntity.status(404).body(ex.getMessage());
         }
     }
 
     @GetMapping(value = "/cliente={id}")
+    @Operation(
+            summary = "Obter conta por ID do cliente.",
+            description = "Recupera uma conta específica com base no ID do cliente fornecido.")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Conta encontrada."
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "Conta não encontrada."
+                    ),
+                    @ApiResponse(
+                            responseCode = "500",
+                            description = "Erro interno do servidor."
+                    )
+            }
+    )
     public ResponseEntity<?> getContaByCliente(
             @Parameter(
-                    description = "ID da conta a ser atualizado.",
+                    description = "ID do cliente da conta a ser buscada.",
                     required = true,
                     example = "1"
             )
@@ -109,12 +127,31 @@ public class ContaController {
         try {
             return ResponseEntity.status(202).body(service.getContaByCliente(id));
         } catch (Exception ex) {
-            return ResponseEntity.badRequest().body(ex.getMessage());
+            return ResponseEntity.status(404).body(ex.getMessage());
         }
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Void> deleteConta(
+    @Operation(
+            summary = "Deletar conta.",
+            description = "Deleta uma conta específica com base no ID fornecido.")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Conta deletada com sucesso."
+                    ),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "Dados inválidos fornecidos."
+                    ),
+                    @ApiResponse(
+                            responseCode = "500",
+                            description = "Erro interno do servidor."
+                    )
+            }
+    )
+    public ResponseEntity<?> deleteConta(
             @Parameter(
                     description = "ID da conta a ser deletado.",
                     required = true,
@@ -124,9 +161,9 @@ public class ContaController {
     ) {
         try {
             service.deleteConta(id);
-            return ResponseEntity.status(204).build();
+            return ResponseEntity.status(204).body("Conta deletada com sucesso.");
         } catch (Exception ex) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.status(400).body(ex.getMessage());
         }
     }
 }

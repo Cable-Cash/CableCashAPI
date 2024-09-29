@@ -1,6 +1,6 @@
 package com.cablecash.api.service.validator;
 
-import com.cablecash.api.model.entity._public.Cliente;
+import com.cablecash.api.model.entity.Cliente;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;

@@ -6,14 +6,13 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
 import com.cablecash.api.exception.ClienteException;
-import com.cablecash.api.model.entity._public.Cliente;
-import com.cablecash.api.repository._public.ClienteRepository;
-import com.cablecash.api.service._public.ClienteService;
+import com.cablecash.api.model.entity.Cliente;
+import com.cablecash.api.repository.ClienteRepository;
+import com.cablecash.api.service.ClienteService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

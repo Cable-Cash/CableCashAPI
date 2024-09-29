@@ -1,7 +1,7 @@
 package com.cablecash.api.controller;
 
-import com.cablecash.api.model.entity._public.Cliente;
-import com.cablecash.api.service._public.ClienteService;
+import com.cablecash.api.model.entity.Cliente;
+import com.cablecash.api.service.ClienteService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;

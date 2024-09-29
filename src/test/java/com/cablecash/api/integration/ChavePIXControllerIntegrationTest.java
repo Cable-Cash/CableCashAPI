@@ -1,10 +1,8 @@
 package com.cablecash.api.integration;
 
-import com.cablecash.api.controller.ClienteController;
-import com.cablecash.api.controller.ContaController;
-import com.cablecash.api.model.entity.Cliente;
-import com.cablecash.api.model.entity.Conta;
-import com.cablecash.api.repository.ContaRepository;
+import com.cablecash.api.controller.ChavePIXController;
+import com.cablecash.api.model.entity.ChavePIX;
+import com.cablecash.api.repository.ChavePIXRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,36 +12,30 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 
-import static com.cablecash.api.config.MockDataConfig.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
-public class ContaControllerIntegrationTest {
+public class ChavePIXControllerIntegrationTest {
 
     @Autowired
-    ClienteController clienteController;
+    ChavePIXController controller;
 
     @Autowired
-    ContaController controller;
-
-    @Autowired
-    ContaRepository repository;
+    ChavePIXRepository repository;
 
     @BeforeEach
     public void setUp() {
         repository.deleteAll();
     }
 
+
     @Test
-    void addContaTest() {
-        Cliente cliente = mockClienteValues(new Cliente());
-        Conta testEntity = new Conta();
+    void addChavePIXTest() {
+        ChavePIX testEntity = new ChavePIX();
 
-        clienteController.addCliente(cliente);
-
-        ResponseEntity<?> response = controller.addConta(mockContaValues(testEntity));
+        ResponseEntity<?> response = controller.addChavePIX(testEntity);
 
         if (response.getBody() != null) {
             assertEquals(HttpStatus.CREATED, response.getStatusCode());
@@ -53,10 +45,10 @@ public class ContaControllerIntegrationTest {
     }
 
     @Test
-    void getContaTest() {
-        addContaTest();
+    void getChavePIXByContaTest() {
+        addChavePIXTest();
 
-        ResponseEntity<?> response = controller.getContaById(1L);
+        ResponseEntity<?> response = controller.getChavePIXByConta(1L);
 
         if (response.getBody() == null) {
             assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
@@ -66,15 +58,26 @@ public class ContaControllerIntegrationTest {
     }
 
     @Test
-    void deleteContaTest() {
-        clienteController.addCliente(mockClienteValues(new Cliente()));
+    void getChavePIXByclienteTest() {
+        addChavePIXTest();
 
-        addContaTest();
+        ResponseEntity<?> response = controller.getChavePIXByCliente(1L);
 
-        Conta testEntity = new Conta();
+        if (response.getBody() == null) {
+            assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+        } else {
+            assertEquals(HttpStatus.OK, response.getStatusCode());
+        }
+    }
+
+    @Test
+    void deleteChavePIXTest() {
+        addChavePIXTest();
+
+        ChavePIX testEntity = new ChavePIX();
 
         if (testEntity.getId() != null) {
-            ResponseEntity<?> response = controller.deleteConta(mockContaValues(testEntity).getId());
+            ResponseEntity<?> response = controller.deleteChavePIX(testEntity.getId());
             assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
         }
     }

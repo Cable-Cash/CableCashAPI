@@ -2,8 +2,8 @@ package com.cablecash.api.service.validator;
 
 import com.cablecash.api.enums.EnumTipoConta;
 import com.cablecash.api.exception.ContaException;
-import com.cablecash.api.model.entity._public.Conta;
-import com.cablecash.api.repository._public.ContaRepository;
+import com.cablecash.api.model.entity.Conta;
+import com.cablecash.api.repository.ContaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;

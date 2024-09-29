@@ -1,0 +1,16 @@
+spring:
+  config:
+    activate.on-profile: prod
+
+  datasource:
+    url: jdbc:postgresql://localhost:5456/CableCashDB
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
